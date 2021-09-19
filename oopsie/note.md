@@ -3,6 +3,8 @@ inet6 fe80::d484:44d2:fd97:c02c
 
 # Oopsie
 
+sudo nmap -sC -sV -A 10.10.10.28
+
 Nmap scan report for 10.10.10.28
 Not shown: 997 closed tcp ports (conn-refused)
 PORT     STATE    SERVICE       VERSION
