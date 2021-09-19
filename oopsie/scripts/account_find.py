@@ -15,3 +15,4 @@ for x in range(0, 100):
     if re.search('[Ss][Uu][Pp][Ee][Rr]', ''.join(result)):
         print('Find in {}: {}'.format(x, ' '.join(result)))
         break
+    
