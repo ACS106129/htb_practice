@@ -251,7 +251,7 @@ UserGroups:
 
 ## Goto the .config/filezilla/filezilla.xml in root dir
 
-<pre>
+```
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <FileZilla3>
     <RecentServers>
@@ -271,7 +271,7 @@ UserGroups:
         </Server>
     </RecentServers>
 </FileZilla3>
-</pre>
+```
 
 ## Get the /var/www/html files
 
