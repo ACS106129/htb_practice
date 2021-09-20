@@ -3,6 +3,8 @@ inet6 fe80::d484:44d2:fd97:c02c
 
 # Archetype
 
+## nmap
+
 sudo nmap -sC -sV -A 10.10.10.27
 
 PORT     STATE SERVICE      VERSION
