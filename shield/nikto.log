@@ -12,3 +12,7 @@
 + No CGI Directories found (use '-C all' to force check all possible dirs)
 + Allowed HTTP Methods: OPTIONS, TRACE, GET, HEAD, POST 
 + Public HTTP Methods: OPTIONS, TRACE, GET, HEAD, POST 
++ 7864 requests: 0 error(s) and 5 item(s) reported on remote host
++ End Time:           2021-09-21 08:36:32 (GMT8) (2247 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested

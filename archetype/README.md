@@ -145,7 +145,7 @@ user.txt
 
 - Search any end at history.txt's file
 
-> dir/s *history.txt
+> dir /s *history.txt
 
 ```
 C:\Users\sql_svc\AppData\Roaming\Microsoft\Windows\PowerShell\PSReadLine
