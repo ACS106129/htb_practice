@@ -1,0 +1,27 @@
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-09-21 07:56 CST
+Nmap scan report for 10.10.10.29
+Host is up (0.26s latency).
+Not shown: 998 filtered tcp ports (no-response)
+PORT     STATE SERVICE VERSION
+80/tcp   open  http    Microsoft IIS httpd 10.0
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows Server
+| http-methods: 
+|_  Potentially risky methods: TRACE
+3306/tcp open  mysql   MySQL (unauthorized)
+Warning: OSScan results may be unreliable because we could not find at least 1 open and 1 closed port
+Device type: general purpose
+Running (JUST GUESSING): Microsoft Windows 2016|2012 (90%)
+OS CPE: cpe:/o:microsoft:windows_server_2016 cpe:/o:microsoft:windows_server_2012
+Aggressive OS guesses: Microsoft Windows Server 2016 (90%), Microsoft Windows Server 2012 (85%), Microsoft Windows Server 2012 or Windows Server 2012 R2 (85%), Microsoft Windows Server 2012 R2 (85%)
+No exact OS matches for host (test conditions non-ideal).
+Network Distance: 2 hops
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+TRACEROUTE (using port 3306/tcp)
+HOP RTT       ADDRESS
+1   272.65 ms 10.10.14.1
+2   272.95 ms 10.10.10.29
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 36.77 seconds

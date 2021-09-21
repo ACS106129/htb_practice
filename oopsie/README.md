@@ -80,6 +80,10 @@ f2c74ee8db7983851ab2a96a44eb7981
 
 > /usr/bin/script -qc /bin/bash /dev/null
 
+or
+
+> SHELL=/bin/bash /usr/bin/script -q /dev/null
+
 ## script help
 
 <pre>
