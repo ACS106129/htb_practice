@@ -1,5 +1,7 @@
 # BountyHunter
 
+Linux server XML External Entity exploit, and make sudo privilege file/cmd to user make system weakness
+
 ## Ifconfig
 
 ```
@@ -252,9 +254,9 @@ Must be ext .md file
 code % 7 == 4 && result > 100
 ```
 
-- Embedding [python code](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python) to [md file](./ssh/root.md), and reverse shell by local site
+- Embedding [python code](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python) to [md file](./ssh/root.md) in victim side, and reverse shell by local site
 
-### Victim (Need to create a md file)
+### Victim (Need to create a md file first)
 
 > sudo python3.8 /opt/skytrain_inc/ticketValidator.py
 
