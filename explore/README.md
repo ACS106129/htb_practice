@@ -1,5 +1,7 @@
 # Explore
 
+Android system bug at ES file explore, and use adb to hack the port to get root privilege
+
 ## Ifconfig
 
 ```
