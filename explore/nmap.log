@@ -1,0 +1,43 @@
+Starting Nmap 7.92 ( https://nmap.org ) at 2021-10-02 06:53 CST
+Nmap scan report for 10.10.10.247
+Host is up (0.18s latency).
+Not shown: 65530 closed tcp ports (reset)
+PORT      STATE    SERVICE    VERSION
+2222/tcp  open     ssh        (protocol 2.0)
+| fingerprint-strings: 
+|   NULL: 
+|_    SSH-2.0-SSH Server - Banana Studio
+| ssh-hostkey: 
+|_  2048 71:90:e3:a7:c9:5d:83:66:34:88:3d:eb:b4:c7:88:fb (RSA)
+5555/tcp  filtered freeciv
+42135/tcp open     http       ES File Explorer Name Response httpd
+|_http-title: Site doesn't have a title (text/html).
+46291/tcp open     tcpwrapped
+59777/tcp open     http       Bukkit JSONAPI httpd for Minecraft game server 3.6.0 or older
+|_http-title: Site doesn't have a title (text/plain).
+1 service unrecognized despite returning data. If you know the service/version, please submit the following fingerprint at https://nmap.org/cgi-bin/submit.cgi?new-service :
+SF-Port2222-TCP:V=7.92%I=7%D=10/2%Time=61579558%P=x86_64-pc-linux-gnu%r(NU
+SF:LL,24,"SSH-2\.0-SSH\x20Server\x20-\x20Banana\x20Studio\r\n");
+No exact OS matches for host (If you know what OS is running on it, see https://nmap.org/submit/ ).
+TCP/IP fingerprint:
+OS:SCAN(V=7.92%E=4%D=10/2%OT=2222%CT=1%CU=40725%PV=Y%DS=2%DC=T%G=Y%TM=61579
+OS:56D%P=x86_64-pc-linux-gnu)SEQ(SP=FF%GCD=1%ISR=110%TI=Z%CI=Z%II=I%TS=A)SE
+OS:Q(SP=FF%GCD=1%ISR=110%TI=Z%CI=Z%TS=A)OPS(O1=M54DST11NW6%O2=M54DST11NW6%O
+OS:3=M54DNNT11NW6%O4=M54DST11NW6%O5=M54DST11NW6%O6=M54DST11)WIN(W1=FFFF%W2=
+OS:FFFF%W3=FFFF%W4=FFFF%W5=FFFF%W6=FFFF)ECN(R=Y%DF=Y%T=40%W=FFFF%O=M54DNNSN
+OS:W6%CC=Y%Q=)T1(R=Y%DF=Y%T=40%S=O%A=S+%F=AS%RD=0%Q=)T2(R=N)T3(R=N)T4(R=Y%D
+OS:F=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T5(R=Y%DF=Y%T=40%W=0%S=Z%A=S+%F=AR%O
+OS:=%RD=0%Q=)T6(R=Y%DF=Y%T=40%W=0%S=A%A=Z%F=R%O=%RD=0%Q=)T7(R=Y%DF=Y%T=40%W
+OS:=0%S=Z%A=S+%F=AR%O=%RD=0%Q=)U1(R=Y%DF=N%T=40%IPL=164%UN=0%RIPL=G%RID=G%R
+OS:IPCK=G%RUCK=G%RUD=G)IE(R=Y%DFI=N%T=40%CD=S)
+
+Network Distance: 2 hops
+Service Info: Device: phone
+
+TRACEROUTE (using port 554/tcp)
+HOP RTT       ADDRESS
+1   178.23 ms 10.10.14.1
+2   175.32 ms 10.10.10.247
+
+OS and Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 1021.65 seconds
