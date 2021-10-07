@@ -1,6 +1,6 @@
 # BountyHunter
 
-Linux server XML External Entity exploit, and make sudo privilege file/cmd to user make system weakness
+Linux server XML External Entity exploit, and giving sudo privilege file/cmd to user makes system weakness
 
 ## Ifconfig
 
