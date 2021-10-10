@@ -1,5 +1,7 @@
 # Previse
 
+HTTP redirect exploited by MTTM attack, and giving root privilege to exec file make command injection happened
+
 ## Ifconfig
 
 ```
@@ -129,7 +131,7 @@ uid=33(www-data) gid=33(www-data) groups=33(www-data)
 
 *Make it can work with xterm (optional)*
 
-> export TERM=xterm
+> export TERM=xterm-256color
 
 ### Login with root account
 
