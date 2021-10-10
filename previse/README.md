@@ -1,6 +1,6 @@
 # Previse
 
-HTTP redirect exploited by MTTM attack, and giving root privilege to exec file make command injection happened
+HTTP redirect exploited by MITM attack, and giving root privilege to exec file make command injection happened
 
 ## Ifconfig
 
