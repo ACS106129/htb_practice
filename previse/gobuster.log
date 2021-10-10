@@ -1,0 +1,30 @@
+===============================================================
+Gobuster v3.1.0
+by OJ Reeves (@TheColonial) & Christian Mehlmauer (@firefart)
+===============================================================
+[+] Url:                     http://10.10.11.104
+[+] Method:                  GET
+[+] Threads:                 100
+[+] Wordlist:                /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt
+[+] Negative Status codes:   404
+[+] User Agent:              gobuster/3.1.0
+[+] Extensions:              xml,html,json,js,php,css
+[+] Timeout:                 10s
+===============================================================
+2021/10/09 23:20:36 Starting gobuster in directory enumeration mode
+===============================================================
+/login.php            (Status: 200) [Size: 2224]
+/download.php         (Status: 302) [Size: 0] [--> login.php]
+/index.php            (Status: 302) [Size: 2801] [--> login.php]
+/files.php            (Status: 302) [Size: 4914] [--> login.php]
+/header.php           (Status: 200) [Size: 980]                 
+/nav.php              (Status: 200) [Size: 1248]                
+/footer.php           (Status: 200) [Size: 217]                 
+/css                  (Status: 301) [Size: 310] [--> http://10.10.11.104/css/]
+/status.php           (Status: 302) [Size: 2968] [--> login.php]              
+/js                   (Status: 301) [Size: 309] [--> http://10.10.11.104/js/] 
+/logout.php           (Status: 302) [Size: 0] [--> login.php]                 
+/accounts.php         (Status: 302) [Size: 3994] [--> login.php]              
+/config.php           (Status: 200) [Size: 0]                                 
+/logs.php             (Status: 302) [Size: 0] [--> login.php]                 
+/261                  (Status: 200) [Size: 0]                                 

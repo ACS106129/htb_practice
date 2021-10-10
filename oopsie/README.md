@@ -156,7 +156,13 @@ cat /root/reports/
 
 - Establish a fake cat instead of root used
 
-> echo /bin/bash -P > cat in ~/tmp (or echo /bin/sh > cat)
+- Command in ~/tmp
+
+> echo /bin/bash -P > cat 
+
+or
+
+> echo /bin/sh > cat
 
 - Switch to local tmp file 'cat'
 

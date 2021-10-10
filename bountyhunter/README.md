@@ -250,7 +250,7 @@ Must be ext .md file
 #1          "# Skytrain Inc"
 #2          "## Ticket to "
 #3+         "__Ticket Code:__"
-#3+ + 1     "r'\*\*[0-9][0-9\+]*[0-9](\*\*)?'" (first number as code, and result as expression)
+#3+ + 1     "r'\*\*[0-9][0-9\+]*[0-9](\*\*)?'" (first number as code, and expression as result)
 code % 7 == 4 && result > 100
 ```
 
