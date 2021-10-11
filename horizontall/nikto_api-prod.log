@@ -1,0 +1,23 @@
+- Nikto v2.1.6
+---------------------------------------------------------------------------
++ Target IP:          10.10.11.105
++ Target Hostname:    api-prod.horizontall.htb
++ Target Port:        80
++ Start Time:         2021-10-11 03:02:22 (GMT8)
+---------------------------------------------------------------------------
++ Server: nginx/1.14.0 (Ubuntu)
++ Retrieved x-powered-by header: Strapi <strapi.io>
++ The X-Content-Type-Options header is not set. This could allow the user agent to render the content of the site in a different fashion to the MIME type
++ No CGI Directories found (use '-C all' to force check all possible dirs)
++ Retrieved access-control-allow-origin header: *
++ Allowed HTTP Methods: HEAD, GET 
++ OSVDB-3092: /admin/: This might be interesting...
++ OSVDB-3092: /Admin/: This might be interesting...
++ /admin/index.html: Admin login page/section found.
++ /admin/html: Tomcat Manager / Host Manager interface found (pass protected)
++ /admin/status: Tomcat Server Status interface found (pass protected)
++ /admin/sites/new: ComfortableMexicanSofa CMS Engine Admin Backend (pass protected)
++ 7863 requests: 0 error(s) and 10 item(s) reported on remote host
++ End Time:           2021-10-11 03:27:26 (GMT8) (1504 seconds)
+---------------------------------------------------------------------------
++ 1 host(s) tested
