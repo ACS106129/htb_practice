@@ -35,7 +35,7 @@ Look there are any hints in those files
 
 ### [App.c68eb462.js](./site/app.c68eb462.js)
 
-> cat app.c68eb462.js | grep horizontall.htb
+> cat [app.c68eb462.js](./site/app.c68eb462.js) | grep horizontall.htb
 
 ```
 ...data:function(){return{reviews:[]}},methods:{getReviews:function(){var t=this;r.a.get("http://api-prod.horizontall.htb/reviews").then(...
